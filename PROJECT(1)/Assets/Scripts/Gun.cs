@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class Gun : MonoBehaviour
 
     public ParticleSystem effect;
     public float nextTimeToFire = 0f;
-    
     
     // Update is called once per frame
     void Update()
@@ -38,12 +37,13 @@ public class Gun : MonoBehaviour
 
             if (hit.transform.tag.Equals("Finish"))
             {
-                aim.tintColor = Color.red;
+                aim.color = Color.red;
             }
             else
             {
-                aim.tintColor = Color.black;
+                aim.color = Color.black;
             }
+            effect.Stop();
         }
 
     }
