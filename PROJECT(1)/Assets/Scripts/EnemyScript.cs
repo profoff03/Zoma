@@ -9,25 +9,39 @@ public class EnemyScript : MonoBehaviour
     private Transform _transform;
     [SerializeField]
     private GameObject _target;
+
+    private Animator _animator;
     
     // Start is called before the first frame update
     void Start()
     {
-        _agent = gameObject.GetComponent<NavMeshAgent>();
-        _transform = gameObject.transform;
-        _target = GameObject.FindWithTag("Player");
+        _agent = GetComponent<NavMeshAgent>();
+        _transform = transform;
+        _animator = GetComponent<Animator>();
+        _target = GameObject.FindWithTag("Target");
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distanceToPlayer = Vector3.Distance(_transform.position, _target.transform.position);
+        var distanceToPlayer = Vector3.Distance(_transform.position, _target.transform.position);
         
-        if (distanceToPlayer > 1)
+        if (distanceToPlayer < 20 && distanceToPlayer > 4)
         {
+            if(_animator.GetBool("IsFight")) _animator.SetBool("IsFight", false); 
+            
+            _animator.SetBool("IsRunning", true);
             _agent.destination = _target.transform.position;
         }
+
+        if (distanceToPlayer < 4)
+        {
+            _animator.SetBool("IsRunning", false);
+            _animator.SetBool("IsFight", true);
+        }
+
         
-        
+
+
     }
 }
